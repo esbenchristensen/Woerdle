@@ -1,4 +1,4 @@
-import { ordListe } from "./ordListe.js";
+import { ordListe } from "ordListe.js";
 
 const antalGæt = 6;
 let gætTilbage = antalGæt;
