@@ -1,4 +1,4 @@
-import { ordListe } from "./ordliste.js";
+import { ordListe } from "./ordListe.js";
 
 const antalGæt = 6;
 let gætTilbage = antalGæt;
@@ -37,49 +37,54 @@ function deleteLetter () {
     næsteBogstav -= 1
 }
 
-function checkGuess () {
+function checkOrd () {
     let row = document.getElementsByClassName("letter-row")[6 - gætTilbage]
-    let guessString = ''
+    let mitGæt = ''
     let rightGuess = Array.from(korrektOrd)
 
     for (const val of ditGæt) {
-        guessString += val
+        mitGæt += val
     }
 
-    if (guessString.length != 5) {
+    if (mitGæt == "snyd") {
+        alert(korrektOrd)
+        return
+    }
+
+    if (mitGæt.length != 5) {
         alert("Du har ikke indtastet nok bogstaver")
         return
     }
 
-    if (!ordListe.includes(guessString)) {
+    if (!ordListe.includes(mitGæt)) {
         alert("Ordet er ikke på listen")
         return
     }
 
     
     for (let i = 0; i < 5; i++) {
-        let letterColor = ''
+        let boxFarve = ''
         let box = row.children[i]
         let letter = ditGæt[i]
         
         let letterPosition = rightGuess.indexOf(ditGæt[i])
         /* Tjekker om bogstavet er i ordet */
         if (letterPosition === -1) {
-            letterColor = 'grey'
+            boxFarve = 'grey'
         } else {
         /* Tjekker bogstavets placering i ordet */
             if (ditGæt[i] === rightGuess[i]) {
-                letterColor = 'green'
+                boxFarve = 'green'
             } else {
-                letterColor = 'yellow'
+                boxFarve = 'yellow'
             }
 
             rightGuess[letterPosition] = "#"
         }
-            box.style.backgroundColor = letterColor
+            box.style.backgroundColor = boxFarve
     }
     /* Alert når man har fundet det rigtige ord og vundet spillet */
-    if (guessString === korrektOrd) {
+    if (mitGæt === korrektOrd) {
         alert("Du har gættet det rigtige ord!")
         gætTilbage = 0
         return
@@ -87,7 +92,7 @@ function checkGuess () {
         gætTilbage -= 1;
         ditGæt = [];
         næsteBogstav = 0;
-    /* Taber besked */
+    /* Taberbesked */
         if (gætTilbage === 0) {
             alert("Du har ikke flere gæt.")
             alert(`Det rigtige ord er: "${korrektOrd}"`)
@@ -124,7 +129,7 @@ document.addEventListener("keyup", (e) => {
 
     /* Checker gæt ved Enter */
     if (pressedKey === "Enter") {
-        checkGuess()
+        checkOrd()
         return
     }
 
@@ -137,7 +142,7 @@ document.addEventListener("keyup", (e) => {
     }
 })
 
-/* Tilføjer eventlistener og laver "Del" om til "backspace"  */
+/* Tilføjer eventlistener der får keyboard til at virke og laver "Del" om til "backspace"  */
 document.getElementById("keyboard").addEventListener("click", (e) => {
     const target = e.target
     

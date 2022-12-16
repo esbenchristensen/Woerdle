@@ -1819,6 +1819,7 @@ export const ordListe = [
     "clips",
     "lejen",
     "tofte",
+    "snyd",
     "oprev",
     "påsyn",
     "guppy",
